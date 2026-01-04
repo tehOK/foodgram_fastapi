@@ -1,12 +1,21 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI
 
 import uvicorn
 
+from core.models import db_helper
 from config import settings
 
 
-app = FastAPI()
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    yield
+    await db_helper.dispose()
 
+app = FastAPI(
+    lifespan=lifespan
+)
 
 if __name__ == "__main__":
     uvicorn.run(
