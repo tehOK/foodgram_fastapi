@@ -7,11 +7,11 @@ from config import settings
 class DBHelper:
     def __init__(
             self,
-            ulr: str,
+            url: str,
             echo: bool = False,
         ) -> None:
         self.engine: AsyncEngine = create_async_engine(
-            url=ulr,
+            url=url,
             echo=echo,
         )
         self.session_factory: async_sessionmaker[AsyncSession] = async_sessionmaker(
@@ -29,6 +29,6 @@ class DBHelper:
             yield session
 
 db_helper = DBHelper(
-    url=str(settings.db.url),
+    url=settings.db.db_url,
     echo=settings.db.echo,
 )
