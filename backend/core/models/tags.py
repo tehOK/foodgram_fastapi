@@ -9,7 +9,7 @@ from .base import Base
 
 
 class Tag(Base):
-    name: Mapped[str] = mapped_column(String(32))
+    name: Mapped[str] = mapped_column(String(321))
     slug: Mapped[str] = mapped_column(unique=True)
 
     # recipes: Mapped[list["RecipeTagsAssociation"]] = relationship(

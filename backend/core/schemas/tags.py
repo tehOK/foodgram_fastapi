@@ -10,3 +10,9 @@ class TagBase(BaseModel):
 
 class TagRead(TagBase):
     pass
+
+class TagInRecipe(TagBase):
+    pass
+
+class TagForRecipe(BaseModel):
+    id: int
