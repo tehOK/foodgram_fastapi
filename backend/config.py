@@ -4,7 +4,7 @@ from pydantic_settings import BaseSettings
 
 class RunSettings(BaseModel):
     host: str = Field(default="localhost")
-    port: int = Field(default=8000)
+    port: int = Field(default=8008)
     reload: bool = Field(default=True)
 
 class DBSettings(BaseModel):
