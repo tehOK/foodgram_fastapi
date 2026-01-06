@@ -1,6 +1,10 @@
+from pathlib import Path
+
 from pydantic import BaseModel, ConfigDict, Field
 from pydantic_settings import BaseSettings
 
+
+BASE_DIR = Path(__file__).resolve().parent
 
 class RunSettings(BaseModel):
     host: str = Field(default="localhost")
@@ -18,6 +22,11 @@ class DBSettings(BaseModel):
         "fk": "fk_%(table_name)s_%(column_0_name)s_%(referred_table_name)s",
         "pk": "pk_%(table_name)s",
     }
+
+class AuthSettings(BaseModel):
+    private_jwt_path: str = BASE_DIR / "secrets" / "jwt_private.pem"
+    public_jwt_path: str = BASE_DIR / "secrets" / "jwt_public.pem"
+    jwt_algorithm: str = "RS256"
 
 class Settings(BaseSettings):
     run: RunSettings = RunSettings()

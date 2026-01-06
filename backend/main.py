@@ -1,12 +1,10 @@
 from contextlib import asynccontextmanager
 
-from fastapi import FastAPI, APIRouter
-
 import uvicorn
-
 from api_v1 import router as api_v1_router
-from core.models import db_helper
 from config import settings
+from core.models import db_helper
+from fastapi import APIRouter, FastAPI
 
 
 @asynccontextmanager
@@ -14,9 +12,8 @@ async def lifespan(app: FastAPI):
     yield
     await db_helper.dispose()
 
-app = FastAPI(
-    lifespan=lifespan
-)
+
+app = FastAPI(lifespan=lifespan)
 
 app.include_router(api_v1_router, prefix="/api")
 
