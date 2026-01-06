@@ -15,7 +15,7 @@ router = APIRouter(
     tags=["Рецепты"]
 )
 
-@router.get("/", response_model=list[RecipeRead])
+@router.get("/", response_model=list[RecipeRead], description="Получить все рецепты")
 async def get_all_recipes(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)]
 ):

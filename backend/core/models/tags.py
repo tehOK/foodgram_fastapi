@@ -9,7 +9,7 @@ if TYPE_CHECKING:
 
 
 class Tag(Base):
-    name: Mapped[str] = mapped_column(String(321))
+    name: Mapped[str] = mapped_column(String(32))
     slug: Mapped[str] = mapped_column(unique=True)
 
     recipes: Mapped[list["RecipeTagsAssociation"]] = relationship(

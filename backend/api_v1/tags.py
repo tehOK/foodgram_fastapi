@@ -12,17 +12,16 @@ router = APIRouter(
     tags=["Теги"],
 )
 
-@router.get("/", response_model=list[TagRead])
+@router.get("/", response_model=list[TagRead], name="Список тегов")
 async def read_tags(
-    session: Annotated[AsyncSession, Depends(db_helper.session_getter)]
-):
+    session: Annotated[AsyncSession, Depends(db_helper.session_getter)]):
     tags = await TagsCRUD.find_all(session=session)
     return tags
 
-@router.get("/{tag_id}", response_model=TagRead)
+@router.get("/{tag_id}", response_model=TagRead, name="Получить тег по ID")
 async def read_tag_by_id(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
-    tag_id: int
+    tag_id: int,
 ):
     tag = await TagsCRUD.find_by_id(session=session, model_id=tag_id)
     if not tag:
