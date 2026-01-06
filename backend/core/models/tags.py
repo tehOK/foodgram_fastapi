@@ -4,14 +4,14 @@ from typing import TYPE_CHECKING
 
 from .base import Base
 
-# if TYPE_CHECKING:
-#     from .recipe_tags_association import RecipeTagsAssociation
+if TYPE_CHECKING:
+    from .recipe_tags_association import RecipeTagsAssociation
 
 
 class Tag(Base):
     name: Mapped[str] = mapped_column(String(321))
     slug: Mapped[str] = mapped_column(unique=True)
 
-    # recipes: Mapped[list["RecipeTagsAssociation"]] = relationship(
-    #     back_populates="tag",
-    # )
+    recipes: Mapped[list["RecipeTagsAssociation"]] = relationship(
+        back_populates="tag",
+    )
