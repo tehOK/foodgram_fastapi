@@ -13,6 +13,7 @@ from sqlalchemy.orm import relationship, mapped_column, Mapped
 from typing import TYPE_CHECKING
 
 from .base import Base
+from .mixins import IdIntPkMixin
 
 if TYPE_CHECKING:
     from .recipes import Recipe
@@ -20,7 +21,7 @@ if TYPE_CHECKING:
     from .ingredients import Ingredient
 
 
-class RecipeTagsAssociation(Base):
+class RecipeTagsAssociation(IdIntPkMixin, Base):
     __tablename__ = "recipe_tag_association"
 
     __table_args__ = (

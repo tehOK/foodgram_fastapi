@@ -3,6 +3,7 @@ from sqlalchemy.orm import mapped_column, Mapped, relationship
 
 from typing import TYPE_CHECKING
 from .base import Base
+from .mixins import IdIntPkMixin
 
 from .recipe_ingredients_association import RecipeIngredientsAssociation
 from .recipe_tags_association import RecipeTagsAssociation
@@ -14,7 +15,7 @@ if TYPE_CHECKING:
     from .recipe_ingredients_association import RecipeIngredientsAssociation
     from .recipe_tags_association import RecipeTagsAssociation
 
-class Recipe(Base):
+class Recipe(IdIntPkMixin, Base):
 
     author: Mapped[int] = mapped_column(ForeignKey("users.id"))
     name: Mapped[str] = mapped_column(String(256))

@@ -13,12 +13,13 @@ from sqlalchemy import (
 from sqlalchemy.orm import relationship, mapped_column, Mapped
 from typing import TYPE_CHECKING
 from .base import Base
+from .mixins import IdIntPkMixin
 
 if TYPE_CHECKING:
     from .recipes import Recipe
     from .ingredients import Ingredient
 
-class RecipeIngredientsAssociation(Base):
+class RecipeIngredientsAssociation(IdIntPkMixin, Base):
     __tablename__ = "recipe_ingredient_association"
 
     __table_args__ = (

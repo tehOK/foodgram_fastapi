@@ -3,11 +3,12 @@ from sqlalchemy.orm import mapped_column, Mapped, relationship
 from typing import TYPE_CHECKING
 
 from .base import Base
+from .mixins import IdIntPkMixin
 
 if TYPE_CHECKING:
     from .recipe_ingredients_association import RecipeIngredientsAssociation
 
-class Ingredient(Base):
+class Ingredient(IdIntPkMixin, Base):
     name: Mapped[str] = mapped_column(String(128))
     measurement_unit: Mapped[str] = mapped_column(String(64))
 
