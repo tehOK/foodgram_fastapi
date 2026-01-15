@@ -33,9 +33,9 @@ class BaseCRUD:
         result = await session.scalars(query)
         return result.one_or_none()
 
-    # @classmethod
-    # async def find_one_or_none(cls, **filter_by):
-    #     async with async_session_maker() as session:
-    #         query = select(cls.model).filter_by(**filter_by)
-    #         result = await session.scalars(query)
-    #         return result.one_or_none()
+    @classmethod
+    async def find_one_or_none(cls, session: AsyncSession, **filter_by):
+        query = select(cls.model).filter_by(**filter_by)
+        result = await session.scalars(query)
+        return result.one_or_none()
+
