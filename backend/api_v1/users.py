@@ -4,6 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api_v1.crud import UsersCRUD
+from api_v1.dependencies import get_auth_user
 from core.models import db_helper, User
 from core.schemas import UserCreate, UserRead
 
@@ -37,4 +38,9 @@ async def get_user_by_id(
     user_id: int
 ):
     user = await UsersCRUD.find_by_id(session=session, model_id=user_id)
+    return user
+
+
+@router.get("/me", response_model=UserRead)
+async def auth_user_info(user: UserRead = Depends(get_auth_user)):
     return user

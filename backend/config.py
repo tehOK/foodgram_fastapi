@@ -24,13 +24,15 @@ class DBSettings(BaseModel):
     }
 
 class AuthSettings(BaseModel):
-    private_jwt_path: str = BASE_DIR / "secrets" / "jwt_private.pem"
-    public_jwt_path: str = BASE_DIR / "secrets" / "jwt_public.pem"
+    private_jwt_path: str = BASE_DIR / "secrets" / "jwt-private.pem"
+    public_jwt_path: str = BASE_DIR / "secrets" / "jwt-public.pem"
     jwt_algorithm: str = "RS256"
+    access_token_lifetime: int = 60 * 24
 
 class Settings(BaseSettings):
     run: RunSettings = RunSettings()
     db: DBSettings = DBSettings()
+    auth: AuthSettings = AuthSettings()
 
     model_config = ConfigDict(
         case_sensitive = False,
