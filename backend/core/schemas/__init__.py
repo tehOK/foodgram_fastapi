@@ -10,10 +10,11 @@ __all__ = (
     'RecipeRead',
     'RecipeCreate',
     'TokenInfo',
+    "UserPasswordUpdate",
 )
 
 from .tags import TagRead, TagForRecipe, TagInRecipe
 from .ingredients import IngredientRead, IngredientInRecipe, IngredientForRecipe
-from .users import UserCreate, UserRead
+from .users import UserCreate, UserRead, UserPasswordUpdate
 from .recipes import RecipeRead, RecipeCreate
 from .auth import TokenInfo

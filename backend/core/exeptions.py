@@ -29,3 +29,12 @@ class ExpireTokenExc(HTTPException):
         headers: str | None = None,
     ):
         super().__init__(status_code, detail, headers)
+
+class PasswordExc(HTTPException):
+    def __init__(
+        self,
+        status_code: status = status.HTTP_400_BAD_REQUEST,
+        detail: str = "Пароли не совпадают",
+        headers: str | None = None,
+    ):
+        super().__init__(status_code, detail, headers)

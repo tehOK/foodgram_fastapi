@@ -1,13 +1,14 @@
 from typing import TYPE_CHECKING
 
 from api_v1.crud import BaseCRUD
-from auth.utils import hash_password
+from auth.utils import hash_password, verify_password
+from core.exeptions import PasswordExc
 from core.models import User
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
 
-    from core.schemas import UserCreate
+    from core.schemas import UserCreate, UserPasswordUpdate
 
 
 class UsersCRUD(BaseCRUD):
@@ -26,3 +27,15 @@ class UsersCRUD(BaseCRUD):
         await session.commit()
         await session.refresh(db_user)
         return db_user
+    
+    @classmethod
+    async def change_password(cls, session: "AsyncSession", password_data: "UserPasswordUpdate", user: "UserCreate"):
+        if not verify_password(password=password_data.current_password, hashed_password=user.password):
+            raise PasswordExc
+        new_hashed_password = hash_password(password=password_data.new_password)
+        user.password = new_hashed_password
+
+        session.add(user)
+
+        await session.commit()
+        await session.refresh(user)

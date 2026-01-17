@@ -17,6 +17,14 @@ class UserCreate(UserBase):
 class UserRead(UserBase):
     id: int
 
+class UserPasswordUpdate(BaseModel):
+    new_password: str
+    current_password: str
+
+    model_config = ConfigDict(
+        from_attributes=True,
+    )
+
 class UserUpdate(BaseModel):
     username: str | None = None
     email: EmailStr | None = None

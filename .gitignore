@@ -8,6 +8,7 @@ data/
 docs/
 certs/
 secrets/
+backend/test.db
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
@@ -147,3 +148,4 @@ dmypy.json
 
 static/
 media/
+backend/test.db
