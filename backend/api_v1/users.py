@@ -1,4 +1,13 @@
 from typing import Annotated
+import base64
+import uuid
+import re
+from pathlib import Path
+from fastapi import HTTPException
+#from PIL import Image
+from io import BytesIO
+from typing import Tuple, Optional
+import imghdr
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
@@ -6,7 +15,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from api_v1.crud import UsersCRUD
 from api_v1.dependencies import get_auth_user
 from core.models import db_helper, User
-from core.schemas import UserCreate, UserRead, UserPasswordUpdate
+from core.schemas import UserCreate, UserRead, UserPasswordUpdate, UserSetAvatar
 
 
 router = APIRouter(tags=["Пользователи"])
@@ -42,6 +51,21 @@ async def password_change(
     return
 
 
+@router.get("/me", response_model=UserRead)
+async def auth_user_info(user: UserRead = Depends(get_auth_user)):
+    return user
+
+@router.put("/me/avatar")
+async def set_user_avatar(
+    session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
+    avatar: UserSetAvatar,
+    user: UserRead = Depends(get_auth_user),
+):
+    print(avatar.avatar)
+    print(user)
+    pass
+    
+
 @router.get("/{user_id}", response_model=UserRead)
 async def get_user_by_id(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)], user_id: int
@@ -49,7 +73,3 @@ async def get_user_by_id(
     user = await UsersCRUD.find_by_id(session=session, model_id=user_id)
     return user
 
-
-@router.get("/me", response_model=UserRead)
-async def auth_user_info(user: UserRead = Depends(get_auth_user)):
-    return user

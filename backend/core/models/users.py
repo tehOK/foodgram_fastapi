@@ -1,4 +1,6 @@
-from sqlalchemy import String
+from typing import Optional
+
+from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column
 
 from .base import Base
@@ -10,3 +12,8 @@ class User(IdIntPkMixin, Base):
     first_name: Mapped[str] = mapped_column(String(150))
     last_name: Mapped[str] = mapped_column(String(150))
     password: Mapped[str] = mapped_column(String(256))
+    avatar: Mapped[Optional[str]] = mapped_column(
+        Text,
+        nullable=True,
+        default=None,
+    )

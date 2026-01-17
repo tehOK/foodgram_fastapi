@@ -149,3 +149,4 @@ dmypy.json
 static/
 media/
 backend/test.db
+backend/test.db

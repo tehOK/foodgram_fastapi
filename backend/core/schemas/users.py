@@ -25,6 +25,14 @@ class UserPasswordUpdate(BaseModel):
         from_attributes=True,
     )
 
+class UserSetAvatar(BaseModel):
+    avatar: str
+
+    model_config = ConfigDict(
+        from_attributes=True,
+    )
+
+
 class UserUpdate(BaseModel):
     username: str | None = None
     email: EmailStr | None = None

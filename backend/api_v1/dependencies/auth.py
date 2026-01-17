@@ -49,7 +49,7 @@ async def get_auth_user(
     payload: dict = Depends(get_current_token_payload),
     session=Depends(db_helper.session_getter),
 ):
-    user_id: int | None = payload.get("sub")
+    user_id: str | None = payload.get("sub")
     user = await UsersCRUD.find_by_id(session=session, model_id=user_id)
     if not user:
         raise InvalidTokenExc
