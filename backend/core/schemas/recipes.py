@@ -4,7 +4,6 @@ from datetime import datetime
 
 from .ingredients import IngredientInRecipe, IngredientForRecipe
 from .tags import TagInRecipe, TagForRecipe
-from .users import UserRead
 
 
 def get_tags_from_association_table(tags):
@@ -30,7 +29,6 @@ def get_ingredients_from_association_table(ingredients):
     ]
 
 
-
 class RecipeBase(BaseModel):
     id: int
     author: int
@@ -43,6 +41,7 @@ class RecipeBase(BaseModel):
         from_attributes=True,
     )
 
+
 class RecipeRead(RecipeBase):
     id: int
     name: str
@@ -50,11 +49,15 @@ class RecipeRead(RecipeBase):
     cooking_time: int
     pub_date: datetime
     tags: Annotated[List[TagInRecipe], BeforeValidator(get_tags_from_association_table)]
-    ingredients: Annotated[List[IngredientInRecipe], BeforeValidator(get_ingredients_from_association_table)]
+    ingredients: Annotated[
+        List[IngredientInRecipe],
+        BeforeValidator(get_ingredients_from_association_table),
+    ]
 
     model_config = ConfigDict(
         from_attributes=True,
     )
+
 
 class RecipeCreate(BaseModel):
     name: str

@@ -1,9 +1,11 @@
 from typing import TYPE_CHECKING
 
+from sqlalchemy import select
+
 from api_v1.crud import BaseCRUD
 from auth.utils import hash_password, verify_password
 from core.exeptions import PasswordExc
-from core.models import User
+from core.models import Subscription ,User
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
@@ -39,3 +41,38 @@ class UsersCRUD(BaseCRUD):
 
         await session.commit()
         await session.refresh(user)
+
+    @classmethod
+    async def get_user_subscribers(cls, session: "AsyncSession", user: User):
+        query = select(User).join(Subscription, Subscription.author_id == User.id).where(Subscription.subscriber_id == user.id)
+        result = await session.scalars(query)
+        return list(result)
+    
+    @classmethod
+    async def create_subscibe_on_user(cls, session: "AsyncSession", user_id: int, user: User):
+        print(user_id)
+        print(user)
+        subscription = Subscription(
+            subscriber_id = user.id,
+            author_id = user_id,
+        )
+        session.add(subscription)
+        await session.commit()
+        await session.refresh(subscription)
+
+        author = await cls.find_by_id(session=session, model_id=user_id)
+
+        return author
+    
+    @classmethod
+    async def delete_subscribe_on_author(cls, session: "AsyncSession", user_id: int, user: User):
+        query = select(Subscription).where(
+            (Subscription.subscriber_id == user.id) &
+            (Subscription.author_id == user_id)
+        )
+        result = await session.execute(query)
+        subscription = result.scalar_one_or_none()
+        print(subscription)
+        await session.delete(subscription)
+        await session.commit()
+        return True

@@ -12,10 +12,11 @@ __all__ = (
     'TokenInfo',
     "UserPasswordUpdate",
     "UserSetAvatar",
+    "UserSubscriptions",
 )
 
 from .tags import TagRead, TagForRecipe, TagInRecipe
 from .ingredients import IngredientRead, IngredientInRecipe, IngredientForRecipe
-from .users import UserCreate, UserRead, UserPasswordUpdate, UserSetAvatar
+from .users import UserCreate, UserRead, UserPasswordUpdate, UserSetAvatar, UserSubscriptions
 from .recipes import RecipeRead, RecipeCreate
 from .auth import TokenInfo

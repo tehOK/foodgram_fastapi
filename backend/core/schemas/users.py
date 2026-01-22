@@ -42,3 +42,8 @@ class UserUpdate(BaseModel):
     model_config = ConfigDict(
         from_attributes=True,
     )
+
+class UserSubscriptions(BaseModel):
+    id: int
+    subscribers_id: int
+    author_id: int

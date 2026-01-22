@@ -7,6 +7,7 @@ __all__ = (
     "Recipe",
     "RecipeIngredientsAssociation",
     "RecipeTagsAssociation",
+    "Subscription",
 )
 
 from .base import Base
@@ -17,3 +18,4 @@ from .users import User
 from .recipes import Recipe
 from .recipe_ingredients_association import RecipeIngredientsAssociation
 from .recipe_tags_association import RecipeTagsAssociation
+from .subscription import Subscription

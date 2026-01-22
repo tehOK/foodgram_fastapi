@@ -150,3 +150,7 @@ static/
 media/
 backend/test.db
 backend/test.db
+raw_sql_data.txt
+backend/test_data.py
+raw_sql_data.sql
+backend/test_data.sql
