@@ -15,8 +15,10 @@ __all__ = (
     "UserSubscriptions",
 )
 
-from .tags import TagRead, TagForRecipe, TagInRecipe
-from .ingredients import IngredientRead, IngredientInRecipe, IngredientForRecipe
-from .users import UserCreate, UserRead, UserPasswordUpdate, UserSetAvatar, UserSubscriptions
-from .recipes import RecipeRead, RecipeCreate
 from .auth import TokenInfo
+from .ingredients import (IngredientForRecipe, IngredientInRecipe,
+                          IngredientRead)
+from .recipes import RecipeCreate, RecipeRead
+from .tags import TagForRecipe, TagInRecipe, TagRead
+from .users import (UserCreate, UserPasswordUpdate, UserRead, UserSetAvatar,
+                    UserSubscriptions)

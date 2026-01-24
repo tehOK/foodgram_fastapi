@@ -7,7 +7,6 @@ from api_v1.crud import IngredientsCRUD
 from core.models import db_helper
 from core.schemas import IngredientRead
 
-
 router = APIRouter(
     tags=["Ингредиенты"]
 )

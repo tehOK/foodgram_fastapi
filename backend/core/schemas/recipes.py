@@ -1,9 +1,10 @@
-from pydantic import BaseModel, ConfigDict, BeforeValidator
-from typing import Annotated, List
 from datetime import datetime
+from typing import Annotated, List
 
-from .ingredients import IngredientInRecipe, IngredientForRecipe
-from .tags import TagInRecipe, TagForRecipe
+from pydantic import BaseModel, BeforeValidator, ConfigDict
+
+from .ingredients import IngredientForRecipe, IngredientInRecipe
+from .tags import TagForRecipe, TagInRecipe
 
 
 def get_tags_from_association_table(tags):

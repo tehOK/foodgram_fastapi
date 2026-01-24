@@ -1,6 +1,6 @@
 from typing import TYPE_CHECKING
 
-from sqlalchemy import ForeignKey, Integer, UniqueConstraint
+from sqlalchemy import ForeignKey, UniqueConstraint
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from core.models import Base
@@ -16,7 +16,6 @@ class Subscription(IdIntPkMixin, Base):
     )
     author_id: Mapped[int] = mapped_column(ForeignKey("users.id", ondelete="CASCADE"))
 
-    # Уникальный constraint (один пользователь не может подписаться на другого дважды)
     __table_args__ = (
         UniqueConstraint("subscriber_id", "author_id", name="unique_subscription"),
     )

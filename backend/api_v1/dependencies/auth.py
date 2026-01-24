@@ -1,15 +1,11 @@
-from jwt import ExpiredSignatureError, InvalidTokenError
 from fastapi import Depends, Form
-from fastapi.security import (
-    HTTPBearer,
-    HTTPAuthorizationCredentials,
-)
+from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
+from jwt import ExpiredSignatureError, InvalidTokenError
 
 from api_v1.crud import UsersCRUD
-from auth.utils import decode_jwt, verify_password
-from core.models import db_helper
+from backend.core.authentication.utils import decode_jwt, verify_password
 from core.exeptions import ExpireTokenExc, InvalidTokenExc, UnauthorizedExc
-
+from core.models import db_helper
 
 http_bearer = HTTPBearer()
 

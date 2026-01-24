@@ -7,7 +7,7 @@ __all__ = (
 )
 
 from .base import BaseCRUD
-from .tags import TagsCRUD
 from .ingredients import IngredientsCRUD
-from .users import UsersCRUD
 from .recipes import RecipesCRUD
+from .tags import TagsCRUD
+from .users import UsersCRUD

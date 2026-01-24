@@ -1,15 +1,14 @@
 from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy.exc import SQLAlchemyError
-
-from api_v1.crud import UsersCRUD, TagsCRUD, RecipesCRUD
-from core.models import db_helper, User, Recipe, RecipeIngredientsAssociation, RecipeTagsAssociation
-from core.schemas import RecipeRead, RecipeCreate
-
 from pydantic import ValidationError
+from sqlalchemy.exc import SQLAlchemyError
+from sqlalchemy.ext.asyncio import AsyncSession
 
+from api_v1.crud import RecipesCRUD, TagsCRUD, UsersCRUD
+from core.models import (Recipe, RecipeIngredientsAssociation,
+                         RecipeTagsAssociation, User, db_helper)
+from core.schemas import RecipeCreate, RecipeRead
 
 router = APIRouter(
     tags=["Рецепты"]

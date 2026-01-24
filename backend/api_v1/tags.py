@@ -7,7 +7,6 @@ from api_v1.crud import TagsCRUD
 from core.models import db_helper
 from core.schemas import TagRead
 
-
 router = APIRouter(
     tags=["Теги"],
 )

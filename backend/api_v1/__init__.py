@@ -1,10 +1,11 @@
 from fastapi import APIRouter
 
-from .tags import router as tags_router
+from .auth import router as auth_router
 from .ingredients import router as ingredients_router
-from .users import router as users_router
 from .recipes import router as recipes_router
-from .auth  import router as auth_router
+from .tags import router as tags_router
+from .users import router as users_router
+
 #from .subscriptions import router as sub_router
 
 router = APIRouter()

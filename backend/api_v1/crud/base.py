@@ -1,11 +1,10 @@
-from sqlalchemy import select
-from sqlalchemy.orm import joinedload
-from sqlalchemy.ext.asyncio import AsyncSession
+from typing import Sequence, TypeVar
+
 from pydantic import BaseModel
-from typing import List, Optional, Union, Sequence, TypeVar
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession
 
 from core.models import Base
-
 
 ModelType = TypeVar("ModelType", bound=Base)
 CreateSchemaType = TypeVar("CreateSchemaType", bound=BaseModel)

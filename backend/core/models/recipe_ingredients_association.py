@@ -1,23 +1,15 @@
-
-from sqlalchemy import (
-    Column,
-    Integer,
-    String,
-    ForeignKey,
-    Table,
-    UniqueConstraint,
-    DateTime,
-    func,
-    Text,
-)
-from sqlalchemy.orm import relationship, mapped_column, Mapped
 from typing import TYPE_CHECKING
+
+from sqlalchemy import ForeignKey, UniqueConstraint
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from .base import Base
 from .mixins import IdIntPkMixin
 
 if TYPE_CHECKING:
-    from .recipes import Recipe
     from .ingredients import Ingredient
+    from .recipes import Recipe
+
 
 class RecipeIngredientsAssociation(IdIntPkMixin, Base):
     __tablename__ = "recipe_ingredient_association"

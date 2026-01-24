@@ -1,10 +1,11 @@
-from typing import Optional, List, TYPE_CHECKING
+from typing import TYPE_CHECKING, List, Optional
 
 from sqlalchemy import String, Text
 from sqlalchemy.orm import Mapped, mapped_column, relationship
 
 from .base import Base
 from .mixins import IdIntPkMixin
+
 #from core.models.subscription import Subscription
 
 if TYPE_CHECKING:

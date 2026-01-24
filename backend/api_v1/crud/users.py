@@ -3,9 +3,9 @@ from typing import TYPE_CHECKING
 from sqlalchemy import select
 
 from api_v1.crud import BaseCRUD
-from auth.utils import hash_password, verify_password
+from backend.core.authentication.utils import hash_password, verify_password
 from core.exeptions import PasswordExc
-from core.models import Subscription ,User
+from core.models import Subscription, User
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession

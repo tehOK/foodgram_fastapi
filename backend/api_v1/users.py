@@ -1,31 +1,13 @@
 from typing import Annotated
-import base64
-import uuid
-import re
-from pathlib import Path
-from fastapi import HTTPException
 
-# from PIL import Image
-from io import BytesIO
-from typing import Tuple, Optional
-import imghdr
-from sqlalchemy import select
-from sqlalchemy.orm import joinedload, selectinload
-from sqlalchemy.ext.asyncio import AsyncSession
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from api_v1.crud import UsersCRUD
 from api_v1.dependencies import get_auth_user
-from core.models import db_helper, User, Subscription
-from core.schemas import (
-    UserCreate,
-    UserRead,
-    UserPasswordUpdate,
-    UserSetAvatar,
-    UserSubscriptions,
-)
-
+from core.models import User, db_helper
+from core.schemas import (UserCreate, UserPasswordUpdate, UserRead,
+                          UserSetAvatar)
 
 router = APIRouter(tags=["Пользователи"])
 
@@ -95,14 +77,18 @@ async def get_user_by_id(
     user = await UsersCRUD.find_by_id(session=session, model_id=user_id)
     return user
 
+
 @router.post("/{user_id}/subscribe", response_model=UserRead)
 async def subscribe_on_user(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
     user_id: int,
     user: UserRead = Depends(get_auth_user),
 ):
-    author = await UsersCRUD.create_subscibe_on_user(session=session, user_id=user_id, user=user)
+    author = await UsersCRUD.create_subscibe_on_user(
+        session=session, user_id=user_id, user=user
+    )
     return author
+
 
 @router.delete("/{user_id}/subscribe")
 async def unsibscribe_author(
@@ -110,7 +96,7 @@ async def unsibscribe_author(
     user_id: int,
     user: UserRead = Depends(get_auth_user),
 ):
-    await UsersCRUD.delete_subscribe_on_author(session=session, user_id=user_id, user=user)
-    return {
-        "message": "success"
-    }
+    await UsersCRUD.delete_subscribe_on_author(
+        session=session, user_id=user_id, user=user
+    )
+    return {"message": "success"}

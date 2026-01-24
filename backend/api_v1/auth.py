@@ -1,8 +1,8 @@
 from fastapi import APIRouter, Depends
 
 from api_v1.dependencies import validete_auth_user
-from auth.utils import encode_jwt
-from core.schemas import UserRead, TokenInfo
+from core.authentication.utils import encode_jwt
+from core.schemas import TokenInfo, UserRead
 
 router = APIRouter(
     tags=["Пользователи"],

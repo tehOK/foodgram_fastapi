@@ -6,7 +6,6 @@ import jwt
 from config import settings
 
 
-
 def encode_jwt(
     payload: dict,
     private_key: str = settings.auth.private_jwt_path.read_text(),

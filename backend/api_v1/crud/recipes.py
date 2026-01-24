@@ -1,9 +1,10 @@
-from api_v1.crud import BaseCRUD
-from core.models import Recipe, RecipeIngredientsAssociation, RecipeTagsAssociation
 from sqlalchemy import select
-from sqlalchemy.orm import joinedload, selectinload
 from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.orm import joinedload, selectinload
 
+from api_v1.crud import BaseCRUD
+from core.models import (Recipe, RecipeIngredientsAssociation,
+                         RecipeTagsAssociation)
 
 
 class RecipesCRUD(BaseCRUD):

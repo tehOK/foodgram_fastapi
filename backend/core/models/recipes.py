@@ -1,17 +1,14 @@
-from sqlalchemy import String, DateTime, func, ForeignKey
-from sqlalchemy.orm import mapped_column, Mapped, relationship
-
 from typing import TYPE_CHECKING
+
+from sqlalchemy import DateTime, ForeignKey, String, func
+from sqlalchemy.orm import Mapped, mapped_column, relationship
+
 from .base import Base
 from .mixins import IdIntPkMixin
-
 from .recipe_ingredients_association import RecipeIngredientsAssociation
 from .recipe_tags_association import RecipeTagsAssociation
 
-
 if TYPE_CHECKING:
-    from .tags import Tag
-    from .ingredients import Ingredient
     from .recipe_ingredients_association import RecipeIngredientsAssociation
     from .recipe_tags_association import RecipeTagsAssociation
 
