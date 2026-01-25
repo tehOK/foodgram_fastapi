@@ -6,15 +6,24 @@ from api_v1.crud import BaseCRUD
 from backend.core.authentication.utils import hash_password, verify_password
 from core.exeptions import PasswordExc
 from core.models import Subscription, User
+from fastapi_pagination.ext.sqlalchemy import paginate
+from fastapi_pagination import Page
 
 if TYPE_CHECKING:
     from sqlalchemy.ext.asyncio import AsyncSession
 
-    from core.schemas import UserCreate, UserPasswordUpdate
+    from core.schemas import UserCreate, UserPasswordUpdate, UserRead
 
 
 class UsersCRUD(BaseCRUD):
     model = User
+
+    @classmethod
+    async def get_all_users(cls, session: "AsyncSession") -> Page["UserRead"]:
+        query = select(cls.model)
+        result = await paginate(session, query=query)
+        return result
+        
 
     @classmethod
     async def create_user(cls, session: "AsyncSession", user: "UserCreate") -> User:

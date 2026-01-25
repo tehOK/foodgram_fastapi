@@ -2,7 +2,7 @@ from typing import Annotated
 
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from fastapi_pagination import Page
 from api_v1.crud import UsersCRUD
 from api_v1.dependencies import get_auth_user
 from core.models import User, db_helper
@@ -12,11 +12,11 @@ from core.schemas import (UserCreate, UserPasswordUpdate, UserRead,
 router = APIRouter(tags=["Пользователи"])
 
 
-@router.get("/", response_model=list[UserRead])
+@router.get("/", response_model=Page[UserRead])
 async def get_all_users(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)],
 ):
-    users = await UsersCRUD.find_all(session=session)
+    users = await UsersCRUD.get_all_users(session=session)
     return users
 
 

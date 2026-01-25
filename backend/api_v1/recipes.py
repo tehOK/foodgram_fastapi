@@ -4,7 +4,7 @@ from fastapi import APIRouter, Depends, HTTPException
 from pydantic import ValidationError
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy.ext.asyncio import AsyncSession
-
+from fastapi_pagination import Page
 from api_v1.crud import RecipesCRUD, TagsCRUD, UsersCRUD
 from core.models import (Recipe, RecipeIngredientsAssociation,
                          RecipeTagsAssociation, User, db_helper)
@@ -14,7 +14,7 @@ router = APIRouter(
     tags=["Рецепты"]
 )
 
-@router.get("/", response_model=list[RecipeRead], description="Получить все рецепты")
+@router.get("/", response_model=Page[RecipeRead], description="Получить все рецепты")
 async def get_all_recipes(
     session: Annotated[AsyncSession, Depends(db_helper.session_getter)]
 ):

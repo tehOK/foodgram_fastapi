@@ -1,10 +1,12 @@
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.orm import joinedload, selectinload
-
+from fastapi_pagination import Page
+from fastapi_pagination.ext.sqlalchemy import paginate
 from api_v1.crud import BaseCRUD
 from core.models import (Recipe, RecipeIngredientsAssociation,
                          RecipeTagsAssociation)
+from core.schemas import RecipeRead
 
 
 class RecipesCRUD(BaseCRUD):
@@ -12,7 +14,7 @@ class RecipesCRUD(BaseCRUD):
 
 
     @classmethod
-    async def get_all_recipes(cls, session: AsyncSession):
+    async def get_all_recipes(cls, session: AsyncSession) -> Page[RecipeRead]:
 
         query = (
             select(Recipe)
@@ -26,9 +28,8 @@ class RecipesCRUD(BaseCRUD):
                 )
             )
         )
-        print(query)
-        recipes = await session.scalars(query)
-        return list(recipes)
+        recipes = await paginate(session, query=query)
+        return recipes
     
     @classmethod
     async def find_recipe_by_id(cls, session: AsyncSession, recipe_id: int):

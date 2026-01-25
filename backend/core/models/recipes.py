@@ -11,6 +11,7 @@ from .recipe_tags_association import RecipeTagsAssociation
 if TYPE_CHECKING:
     from .recipe_ingredients_association import RecipeIngredientsAssociation
     from .recipe_tags_association import RecipeTagsAssociation
+    from .users import User
 
 class Recipe(IdIntPkMixin, Base):
 

@@ -12,7 +12,7 @@ class RunSettings(BaseModel):
 
 class DBSettings(BaseModel):
     db_url: str = Field(default="sqlite+aiosqlite:///./test.db")
-    echo: bool = Field(default=False)
+    echo: bool = Field(default=True)
 
     naming_convention: dict[str, str] = {
         "ix": "ix_%(column_0_label)s",
